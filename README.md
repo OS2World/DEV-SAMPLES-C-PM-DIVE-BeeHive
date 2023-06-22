@@ -15,9 +15,9 @@ AUTHORS
 ===============
 * Lars Erdmann (2023)
 * Dave Yeo (2023)
-* * Martin Iturbide (2023)
+* Martin Iturbide (2023)
 * IBM
 
 LINKS
 ===============
-* [https://github.com/OS2World/DEV-SAMPLES-The-IBM-Developer-Connection-Release-12](https://github.com/OS2World/DEV-SAMPLES-IBM_Dev_Toolkit_Samples)https://github.com/OS2World/DEV-SAMPLES-IBM_Dev_Toolkit_Samples
+* [https://github.com/OS2World/DEV-SAMPLES-The-IBM-Developer-Connection-Release-12](https://github.com/OS2World/DEV-SAMPLES-IBM_Dev_Toolkit_Samples)
