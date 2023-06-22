@@ -6,22 +6,24 @@
 #  Make: make
 all : beehive.exe
 
-.c.obj:
-	icc -C -Q -Ti -Gm+ -Gd+ -Ge+ -G5 -Ss $<
-
-
 beehive.exe : beehive.obj animate.obj blitgen.obj pcxload.obj beehive.def beehive.res
-	ilink -NOL -O:beehive.exe -PM:PM -BASE:0x10000 -STACK:0x10000 -E:2 -MAP -DE -DB beehive.obj animate.obj blitgen.obj pcxload.obj mmpm2.lib beehive.def
-	dllrname -n beehive.exe CPPOM30=OS2OM30
-	rc -n -p -x2 beehive.res
+	gcc -Zomf -g -o beehive.exe -L. -lmmpm2 beehive.obj animate.obj blitgen.obj pcxload.obj beehive.def
+	wrc -q beehive.res
 
 beehive.obj : beehive.c beehive.h
+	gcc -Wall -Zomf -c -x c -g beehive.c -o beehive.obj
+
 animate.obj : animate.c
+	gcc -Wall -Zomf -c -x c -g animate.c -o animate.obj
+
 blitgen.obj : blitgen.c
+	gcc -Wall -Zomf -c -x c -g blitgen.c -o blitgen.obj
+
 pcxload.obj : pcxload.c
+	gcc -Wall -Zomf -c -x c -g pcxload.c -o pcxload.obj
 
 beehive.res : beehive.rc
-	rc -n -r beehive.rc
+	wrc -q -r -bt=os2 beehive.rc
 
 clean :
 	rm -rf *exe *res *obj *lib

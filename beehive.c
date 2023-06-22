@@ -46,8 +46,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#define  _MEERROR_H_
-#include <mmioos2.h>
+#include <time.h>
+#define  INCL_OS2MM
+#include <os2me.h>
 #include <dive.h>
 #include <fourcc.h>
 
@@ -228,11 +229,11 @@ ULONG Initialize( VOID )
    if( ulrc )
       return ulrc;
 
-   ulrc = ReadFile( "bee1.pcx", &bmpImage1 );     // bee moving right
-   ulrc += ReadFile( "bee1b.pcx", &bmpImage1b );   // bee moving right with wing
-   ulrc += ReadFile( "bee2.pcx", &bmpImage2 );     // bee moving left
-   ulrc += ReadFile( "bee2b.pcx", &bmpImage2b );   // bee moving left with wing
-   ulrc += ReadFile( "honey.pcx", &bmpBackGround );
+   ulrc = ReadFile( (PSZ) "bee1.pcx", &bmpImage1 );     // bee moving right
+   ulrc += ReadFile( (PSZ) "bee1b.pcx", &bmpImage1b );   // bee moving right with wing
+   ulrc += ReadFile( (PSZ) "bee2.pcx", &bmpImage2 );     // bee moving left
+   ulrc += ReadFile( (PSZ) "bee2b.pcx", &bmpImage2b );   // bee moving left with wing
+   ulrc += ReadFile( (PSZ) "honey.pcx", &bmpBackGround );
    if( ulrc )
       return ulrc;
 
@@ -330,11 +331,11 @@ MRESULT EXPENTRY MyWindowProc ( HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2 )
 {
    HRGN     hrgn;                   // Region handle
    RGNRECT  rgnCtl;                 // Processing control structure
-   RECTL    rclBound;               // Bounding rectangle for blitting
+   // RECTL    rclBound;               // Bounding rectangle for blitting
    POINTL   pointl;                 // Lower left corner of window
    SWP      swp;                    // Standard window position
    RECTL    rcls[50];               // Visible rectangles
-   ULONG    ulNumRcls;
+   ULONG    ulNumRcls = 1;
 
    USHORT   fsKeyFlags;             // Virtual key message flags.
    PSPRITEDATA  pSprite,            // Sprite data structure
@@ -342,12 +343,11 @@ MRESULT EXPENTRY MyWindowProc ( HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2 )
 
    SETUP_BLITTER SetupBlitter;      // structure for DiveSetupBlitter
 
-   static HDC  hdc;                 // Device context for client window
    static HPS  hps;                 // Presentation space handle
    static BOOL fSwitching = FALSE;  // TRUE when switchine to/from full screen
    static BOOL fFullScreen = FALSE; // TRUE when in full screen
 
-   PQMSG     pqmsg;
+   // PQMSG     pqmsg;
 
    switch( msg )
    {
@@ -355,8 +355,8 @@ MRESULT EXPENTRY MyWindowProc ( HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2 )
 
       // Create a presentation space
       //
-      hdc = WinOpenWindowDC( hwnd );
       hps = WinGetPS ( hwnd );
+
       break;
 
    case WM_NotifyVideoModeChange:
@@ -638,7 +638,6 @@ MRESULT EXPENTRY MyWindowProc ( HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2 )
       //
       if( SHORT1FROMMP( mp1 ) == ID_TIMER )
       {
-
          // Create another sprite and add it to the linked list
          //
          pSprite = &FirstSprite;
@@ -660,8 +659,8 @@ MRESULT EXPENTRY MyWindowProc ( HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2 )
          pNewSprite->ulPositionX = 0;           // Set sprite position
          pNewSprite->ulPositionY = 0;
 
-         pNewSprite->lDeltaX = ( 6 * rand() ) / RAND_MAX + 1;
-         pNewSprite->lDeltaY = ( 3 * rand() ) / RAND_MAX + 1;
+         pNewSprite->lDeltaX = (LONG)(( 6.0 * rand() ) / RAND_MAX + 1.0);
+         pNewSprite->lDeltaY = (LONG)(( 3.0 * rand() ) / RAND_MAX + 1.0);
 
          pNewSprite->pNextSprite = NULL;
 
@@ -695,22 +694,22 @@ MRESULT EXPENTRY MyWindowProc ( HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2 )
 
 
 
-ULONG main ( VOID )
+int main ( VOID )
    {
-   PSZ      pszMyWindow = "MyWindow";     // Window class name
-   PSZ      pszTitleText = "PARALAX";     // Title bar text
+   PSZ      pszMyWindow = (PSZ) "MyWindow";     // Window class name
+   PSZ      pszTitleText = (PSZ) "PARALAX";     // Title bar text
 
    TID      tidBlitThread;
    HMQ      hmq;                 // Message queue handle
    QMSG     qmsg;                // Message from message queue
    ULONG    flCreate;            // Window creation control flags
-   ULONG    i;                   // Index for the files to open
+   // ULONG    i;                   // Index for the files to open
    LONG     lCx, lCy;            // System values for screen extents
 
    PSPRITEDATA pSpriteData,
                pNextSprite;
 
-   extern APIENTRY Animation( void );
+   extern VOID APIENTRY Animation( PVOID p );
 
    /* Initialize the presentation manager, and create a message queue.
    */

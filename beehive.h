@@ -172,8 +172,3 @@ VOID QueueSound( PSOUND pSound );
 VOID  QueueContinuousSound( PSOUND pSound );
 
 VOID DequeueContinuousSound( VOID );
-
-
-
-
-

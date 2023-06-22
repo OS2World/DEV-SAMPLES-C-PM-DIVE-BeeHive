@@ -228,16 +228,16 @@ ULONG ReadFile ( PSZ pszFile, PBMPDATA pbmpData )
    {
    ULONG       i;
    PCX_HEADER  pcxHeader;
-   ULONG       ulOpenParms;
+   // ULONG       ulOpenParms;
    FILE       *pFile;
    ULONG       ulBytesRead;
    ULONG       ulDataSize;
-   CHAR        chData;
+   LONG        chData;
    ULONG       ulRunLength;
-   ULONG       ulRemBytesInLine;
-   ULONG       ulLinesToRead;
-   ULONG       ulBytesToRead;
-   ULONG       ulError;
+   // ULONG       ulRemBytesInLine;
+   // ULONG       ulLinesToRead;
+   // ULONG       ulBytesToRead;
+   // ULONG       ulError;
    PBYTE       pbTmpDest;
    PBYTE       pbPalette;
 
@@ -302,13 +302,13 @@ ULONG ReadFile ( PSZ pszFile, PBMPDATA pbmpData )
          //
          for( i = 0; i < ulRunLength; i++ )
             {
-            *pbTmpDest++ = chData;
+            *pbTmpDest++ = (BYTE)chData;
             ulBytesRead++;
             }
          }
       else
          {
-         *pbTmpDest++ = chData;
+         *pbTmpDest++ = (BYTE)chData;
          ulBytesRead++;
          }
       }

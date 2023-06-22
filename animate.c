@@ -104,8 +104,8 @@ VOID  BlitSprite( PBMPDATA pbmpSprite,       // Pointer to sprite structure
             // Here if the pixel was transparent so we don't copy the pixel
             // and we just increment the buffer pointers.
             //
-            *pbTarget++;
-            *pbSource++;
+            pbTarget++;
+            pbSource++;
          }
       }  // end for loop
 
@@ -130,14 +130,14 @@ VOID  BlitSprite( PBMPDATA pbmpSprite,       // Pointer to sprite structure
 //
 //************************************************************************
 
-VOID APIENTRY Animation ( void )
+VOID APIENTRY Animation ( PVOID p )
 {
    CHAR     szFrameRate[256];
    PSPRITEDATA pSprite;
    ULONG    ulFramesToTime = 16,
-            rc,
+            // rc,
             ulNumFrames = 0,
-            ulPostCount,
+            // ulPostCount,
             ulTime0 = 0,
             ulTime1 = 0,
             ulSpriteCount;
@@ -267,10 +267,10 @@ VOID APIENTRY Animation ( void )
          DosQuerySysInfo ( QSV_MS_COUNT, QSV_MS_COUNT, &ulTime1, 4L );
          ulTime1 -= ulTime0;
 
-         sprintf( szFrameRate,
-                  "F.P.S. = %d, Sprite Count = %d ",
-                  ulFramesToTime * 1000 / ulTime1,
-                  ulSpriteCount );
+         if (ulTime1) sprintf( szFrameRate,
+                     "F.P.S. = %ld, Sprite Count = %ld ",
+                     ulFramesToTime * 1000 / ulTime1,
+                     ulSpriteCount );
          ulNumFrames = 0;
          WinPostMsg( hwndFrame, WM_COMMAND, (PVOID)ID_NEWTEXT, szFrameRate );
       }
@@ -280,7 +280,7 @@ VOID APIENTRY Animation ( void )
       // This call will create a small hit on the frame rate but will make
       // the application much more friendly to other applications.
       //
-      DosSleep( 0 );
+      DosSleep( 1 );
    }
 
 }

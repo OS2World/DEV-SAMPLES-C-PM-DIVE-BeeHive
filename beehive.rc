@@ -22,4 +22,3 @@ MENU                                    ID_MAINWND      PRELOAD
       MENUITEM  "E~xit\tF3",            ID_EXIT,        MIS_TEXT
       }
    }
-

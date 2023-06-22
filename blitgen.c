@@ -62,7 +62,7 @@ ULONG GenBlitSprite( PPVOID ppfnCode,  // Pointer to generated code pointer
 
    ULONG    ulCodeSize = 0,            // Total size of generated code
             ulDoubleWordMoves = 0,     // Number of double word moves
-            ulAdjustments = 0,         // Number of pointer adjustments
+            // ulAdjustments = 0,         // Number of pointer adjustments
             ulBlanks = 0,
             ulScanLineDelta = 0,
             ulBytes = 0,
