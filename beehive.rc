@@ -2,8 +2,7 @@
  *
  * File Name        : BEEHIVE.RC
  *
- * Description      : Define BEEHIVE.EXE menus
- *
+ * Description      : Define BEEHIVE.EXE menus. Resource Script File
  ****************************************************************************/
 
 #include <os2.h>

@@ -114,7 +114,7 @@ ULONG SetupFullScreen( VOID )
     {
        fFSBase = FALSE;
 
-       if ( 0 == DosLoadModule( szErrorBuf, 256, "GAMESRVR", &hmodGameSrvr ) )
+       if ( 0 == DosLoadModule( szErrorBuf, 256, (PCSZ) "GAMESRVR", &hmodGameSrvr ) )
        {
            if ( 0 == DosQueryProcAddr( hmodGameSrvr, 1, 0, &pfnInitGameFrameProc ) )
            {
@@ -133,7 +133,7 @@ ULONG SetupFullScreen( VOID )
     else
     {
        fFSBase = TRUE;
-       DosLoadModule( szErrorBuf, 256, "PMMERGE", &hmodGameSrvr );
+       DosLoadModule( szErrorBuf, 256, (PCSZ) "PMMERGE", &hmodGameSrvr );
        if ( 0 == DosQueryProcAddr( hmodGameSrvr, 6099, 0, &pfnInitGameFrameProc ) )
        {
            ( pfnInitGameFrameProc )( hwndFrame, 0 );

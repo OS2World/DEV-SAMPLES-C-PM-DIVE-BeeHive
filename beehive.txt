@@ -1,0 +1,106 @@
+Name: 		BeeHive
+Descripcion: 	Compiles Sprites PM App sample.
+Date: 		2023-06-21
+Version:	1.02
+----------------------------   
+
+DESCRIPTION
+-----------
+
+The purpose of this application is to demonstrate the power of compiled
+sprites by comparing the performance of a typical sprite algorithm against
+a compiled sprite.
+
+When the application first starts, it will display a single sprite moving
+in a random path around the application window. The user can add sprites
+by holding down the 'H' key. As the sprite count increases, the effects on
+the frame rate will become evident. The actual frame rate will be
+displayed on the title bar.
+
+The user will be able to switch the application from compiled sprites to
+normal sprites from a pull down menu. As the number of sprites increases,
+the difference in performance from compiled to normal sprites will become
+more dramatic.
+
+
+Sprite Compiler
+
+
+"Compiled Sprites" is an advanced programming technique used to maximize
+the blit performance of a two dimensional sprite. The concept is similar
+to the one employed by DIVE in that known parameters of the blit operation
+are used to generate a custom blitter that is optimized for the given
+parameters. In the case of DIVE, the blitter is optimized for a given
+source and destination image type and size. A sprite compiler would
+optimize the blitter further by using the actual image data to generate a
+blitter that is specific to that image. In the context of a game, the
+sprite compiler would be used to generate a small, fully optimized blitter
+for every sprite in the game. Each sprite could then be considered a self
+contained object ( a Compiled Sprite ) that would blit itself onto the
+destination buffer.
+
+Where this technique becomes most valuable is when blitting irregularly
+shaped or partially transparent sprites. With this kind of sprite, the
+blitter would normally have to test each pixel of the sprite and copy it,
+only if it is not transparent. Processing a conditional branch instruction
+for every pixel in the sprite would dramatically increase the amount of
+time required to blit. When using a compiled sprite, the blitter already
+knows which pixels are transparent and adjusts the source and destination
+pointers accordingly.
+
+In a PCDOS world, where the properties of the display mode are known (
+probably Mode 13 or Mode X ), the sprite compiler would generate a blitter
+that could blit the sprite directly to video memory. Under a GUI like
+Warp, the compiled sprite could be designed to blit to an off screen
+buffer, where the entire scene is rendered before being copied to the
+screen by DIVE ( double buffering ).
+
+
+REQUIREMENTS
+------------
+- yum install git gcc make libc-devel binutils watcom-wrc watcom-wlink-hll
+
+COMPILE INSTRUCTIONS
+--------------------
+This version of this sample was modified to compile on ArcaOS with GCC 9 compiler. 
+
+1) Remember to have correct header files your path. For GCC the correct ones are the included on the "libc-devel", not the ones from the OS/2 Toolkit. Check your config.sys for "SET INCLUDE=C:\usr\include"
+
+2) Since I'm using the Watcom Resource Compiler (open source) instead of the classic rc.exe, and the the Watcom Linker, intead of the classic ilink.exe, add to your config.sys...
+ SET EMXOMFLD_LINKER=wl.exe
+ SET EMXOMFLD_TYPE=WLINK
+ SET EMXOMFLD_RC_TYPE=WRC
+ SET EMXOMFLD_RC=wrc.exe
+
+3) Run "make" or "make 2>&1 |tee make.out" to get the log file.
+
+
+TOOLS USED
+----------
+- ArcaOS	- Verion 5.0.7
+- wrc 		- Version 2.0beta1
+- gcc		- gcc (GCC) 9.2.0 20190812 (OS/2 RPM build 9.2.0-5.oc00)
+- make 		- Version 3.81 k2 (2017-11-10)
+
+TROUBLESHOOT
+------------
+The compile produce will run by just executing make on the directory, but a compile.cmd file is includes to store the log in a file. If you want to save the log file you can run it as "nmake 2>&1 |tee make.out". The log will be saved into the "make.out" file.
+
+HISTORY
+---------- 
+- 1.02 - 2023-06-21
+Changed version to compile on gcc and to run on ArcaOS 5.0.7.
+
+- 1.0
+Original version by IBM
+
+LICENSE
+-------
+The 3-Clause BSD License.
+
+AUTHORS
+-------
+- Martin Iturbide (2023)
+- Lars Edmann (2023)
+- Dave Yeo (2023)
+- IBM

@@ -1,5 +1,9 @@
+;-------------------------------------
+; BEEHIVE.DEF module definition file
+;-------------------------------------
+
 NAME        BEEHIVE      WINDOWAPI
 
-DESCRIPTION 'Sprite compiler game demo'
+DESCRIPTION '@#OS2World:1.02#@##1## 21 Jun 2023 20:00:00     ARCAOS-507::::::v1.02@@Sprite compiler game demo'
 
 STACKSIZE   16384        ; Must be non-zero for SS == DS (suggest 16k min)

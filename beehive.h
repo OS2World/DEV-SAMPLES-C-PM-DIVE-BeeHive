@@ -1,3 +1,6 @@
+/*------------------------
+   BEEHIVE.H header file
+  ------------------------*/
 
 //   Menu items definitions
 //

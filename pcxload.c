@@ -58,7 +58,7 @@ ULONG ExtractPalette( PSZ pszFile, PBYTE pbPalette )
 
    // Open image file
    //
-   if( ( pFile = fopen ( pszFile, "rb" ) ) == NULL )
+   if( ( pFile = fopen ( (const char * restrict) pszFile, "rb" ) ) == NULL )
       return( 1 );
 
    // Seek to the beginning of the palette data
@@ -243,7 +243,7 @@ ULONG ReadFile ( PSZ pszFile, PBMPDATA pbmpData )
 
    // Open image file
    //
-   if( ( pFile = fopen ( pszFile, "rb" ) ) == NULL )
+   if( ( pFile = fopen ( (const char * restrict) pszFile, "rb" ) ) == NULL )
       return( 1 );
 
    // Read PCX header from image file
